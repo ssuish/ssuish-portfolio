@@ -61,7 +61,7 @@ class TestBlock(unittest.TestCase):
             block_to_block_type("###### Heading level 6"), BlockType.HEADING
         )
 
-        code_block = "```/nprint('hello')\n```"
+        code_block = "```\nprint('hello')\n```"
         self.assertEqual(block_to_block_type(code_block), BlockType.CODE)
 
         quote_block = "> quote line 1\n> quote line 2"
@@ -87,7 +87,7 @@ class TestBlock(unittest.TestCase):
         ```
             This is text that _should_ remain
             the **same** even with inline stuff
-            ```
+        ```
         """
 
         node = markdown_to_html_node(md)
