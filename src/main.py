@@ -19,7 +19,7 @@ def copy_files(source_dir, dest_dir):
 
 
 def static_to_public():
-    public_dir_abs = os.path.abspath("./public")
+    public_dir_abs = os.path.abspath("./docs")
     static_dir_abs = os.path.abspath("./static")
 
     if os.path.exists(public_dir_abs):
@@ -30,7 +30,7 @@ def static_to_public():
 
 
 def main():
-    public_dir_abs = os.path.abspath("./public")
+    public_dir_abs = os.path.abspath("./docs")
     dir_path_content = os.path.abspath("./content")
     template_path = os.path.abspath("./template.html")
     basepath = None
