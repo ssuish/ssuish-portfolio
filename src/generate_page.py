@@ -37,7 +37,7 @@ def generate_page(from_path, template_path, dest_path, basepath="/"):
         with open(template_path, "r") as f:
             template = f.read()
     except FileNotFoundError:
-        print(f"Missing file at {from_path}")
+        print(f"Missing file at {template_path}")
 
     html_str = markdown_to_html_node(md).to_html()
 
@@ -45,8 +45,8 @@ def generate_page(from_path, template_path, dest_path, basepath="/"):
 
     template = template.replace("{{ Title }}", title)
     template = template.replace("{{ Content }}", html_str)
-    template = template.replace('href="/', f'href="/{basepath}')
-    template = template.replace('src="/', f'src="/{basepath}')
+    template = template.replace('href="/', f'href="{basepath}')
+    template = template.replace('src="/', f'src="{basepath}')
 
     dir_path = os.path.dirname(dest_path)
     os.makedirs(os.path.abspath(dir_path), exist_ok=True)
