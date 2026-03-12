@@ -35,7 +35,9 @@ jobs:
           if [ -f pyproject.toml ]; then pip install .; fi
       
       - name: Build site
-        run: python3 src/main.py "/"
+        run: |
+          chmod +x build.sh
+          ./build.sh
       
       - uses: actions/upload-pages-artifact@v3
         with:
