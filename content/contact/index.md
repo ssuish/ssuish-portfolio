@@ -1,9 +1,16 @@
-# Contact the Author
+# Contact
 
 [< Back Home](/)
 
-Give me a call anytime to chat about Tolkien!
+If you’d like to talk about work, collaboration, or anything related to software and the projects on this site, feel free to reach out.
 
-`555-555-5555`
+## Email
 
-**"Váya márië."**
+Replace this with your preferred email:
+
+`you@example.com`
+
+## Links
+
+- GitHub: https://github.com/your-username
+- LinkedIn: https://linkedin.com/in/your-username
