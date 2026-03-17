@@ -100,6 +100,48 @@ img {
   box-shadow: 3px 3px 6px #000;
 }
 
+@media (max-width: 768px) {
+  body {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 2.2em;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  h3 {
+    font-size: 1.4em;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+    line-height: 1.8;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.7em;
+  }
+
+  h3 {
+    font-size: 1.4em;
+  }
+
+  ul,
+  ol {
+    padding-left: 22px;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
