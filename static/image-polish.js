@@ -24,7 +24,14 @@ function initImagePolish(article) {
       img.classList.add("img-ready");
     };
     if (img.complete) markReady();
-    else img.addEventListener("load", markReady, { once: true });
+    else {
+      img.addEventListener("load", markReady, { once: true });
+      img.addEventListener(
+        "error",
+        () => img.classList.remove("img-loading"),
+        { once: true },
+      );
+    }
 
     if (!img.closest(".image-frame")) {
       const frame = document.createElement("figure");
