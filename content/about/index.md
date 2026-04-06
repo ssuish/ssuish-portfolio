@@ -4,6 +4,8 @@
 
 Hi, I’m **ssuish**. This site is a home for my projects, experiments, and notes as a software engineer.
 
+For a shorter intro and elevator pitch, start on [Home](/).
+
 ## What I Work On
 
 - **Web development** – building reliable, maintainable web experiences.

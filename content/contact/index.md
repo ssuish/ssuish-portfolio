@@ -6,11 +6,8 @@ If you’d like to talk about work, collaboration, or anything related to softwa
 
 ## Email
 
-Replace this with your preferred email:
-
-`you@example.com`
+`kofeejan.games@gmail.com`
 
 ## Links
 
-- GitHub: https://github.com/your-username
-- LinkedIn: https://linkedin.com/in/your-username
+- GitHub: https://github.com/ssuish

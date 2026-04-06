@@ -1,23 +1,30 @@
 # ssuish
 
-Software engineer • builder of reliable web experiences.
+Software Engineer • Game Developer • Illustrator.
 
-Welcome to my portfolio. This site is generated with a custom static site generator and showcases selected projects, background, and ways to get in touch.
+> Replace this block with your elevator pitch: one or two sentences on what you build, who it helps, and what you care about most. Remove this blockquote when the copy is final.
 
-## Highlights
 
-- **Projects**: Real-world apps, tools, and experiments.
-- **Background**: A quick overview of who I am and what I work on.
-- **Contact**: Simple ways to reach me for work or collaboration.
 
-## Featured Sections
+**Start here:** [Projects](/projects/) — or browse [Blog](/blog/) for longer writing.
 
-- [Projects](/projects/) — curated list of work with brief write-ups.
-- [About](/about/) — background, skills, and interests.
-- [Contact](/contact/) — how to get in touch.
+## Explore the site
 
-## Recent Writing
+- [Projects](/projects/) — curated work with short write-ups, stack, and links.
+- [Blog](/blog/) — essays, build notes, and deeper dives.
+- [About](/about/) — background, skills, and how this site fits your work.
 
-- [Why Glorfindel is More Impressive than Legolas](/blog/glorfindel)
-- [Why Tom Bombadil Was a Mistake](/blog/tom)
-- [The Unparalleled Majesty of "The Lord of the Rings"](/blog/majesty)
+## Personal journey
+
+> Replace with 2–4 short paragraphs about how you got here, what you’re chasing next, and what ties your roles together. If this runs long, keep a teaser here and point readers to [About](/about/) for the full story.
+
+This site is generated with a custom static site generator; content lives in Markdown under `/content` and ships as static HTML.
+
+## Contact
+
+For work, collaboration, or anything related to the projects here, you’re welcome to reach out.
+
+- GitHub: https://github.com/ssuish
+- Email: `kofeejan.games@gmail.com`
+
+More detail and other channels: [Contact](/contact/).
