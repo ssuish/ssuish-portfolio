@@ -1,6 +1,6 @@
 # Worldbuilding in games
 
-[< Back to Blog](/blog/)
+[< Back to Art & Blog](/blog/)
 
 *Draft — add a publication date when you ship this post.*
 
