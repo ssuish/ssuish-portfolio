@@ -6,17 +6,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initImagePolish(article, motionMQ.matches);
   initZoom(article);
-  if (!motionMQ.matches) initGSAP(article);
+
+  let cleanupGSAP = null;
+  if (!motionMQ.matches) {
+    cleanupGSAP = initGSAP(article);
+  }
 
   motionMQ.addEventListener("change", ({ matches }) => {
-    if (!matches || !window.gsap) return;
-    if (window.ScrollTrigger) ScrollTrigger.getAll().forEach((t) => t.kill());
-    gsap.set(
-      article.querySelectorAll(
-        "h1, h2, h3, p, ul, ol, blockquote, pre, .image-frame",
-      ),
-      { clearProps: "all" },
-    );
+    if (matches) {
+      cleanupGSAP?.();
+      cleanupGSAP = null;
+      if (!window.gsap) return;
+      gsap.set(
+        article.querySelectorAll(
+          "h1, h2, h3, p, ul, ol, blockquote, pre, .image-frame",
+        ),
+        { clearProps: "all" },
+      );
+    } else {
+      cleanupGSAP = initGSAP(article);
+    }
   });
 });
 
@@ -88,40 +97,111 @@ function initZoom(article) {
     .forEach((img) => img.classList.add("zoomable"));
 }
 
+/**
+ * @returns {(() => void) | null} cleanup to abort hover listeners, kill tweens, and ScrollTriggers
+ */
 function initGSAP(article) {
-  if (!window.gsap || !window.ScrollTrigger) return;
+  if (!window.gsap || !window.ScrollTrigger) return null;
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Gate hover effects to pointer-capable devices; touch devices skip mouse-only UX
-  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    gsap.utils.toArray(".nav-links a, .brand").forEach((el) => {
-      el.addEventListener("mouseenter", () =>
-        gsap.to(el, { y: -2, duration: 0.18, ease: "power2.out" }),
-      );
-      el.addEventListener("mouseleave", () =>
-        gsap.to(el, { y: 0, duration: 0.18, ease: "power2.out" }),
-      );
-    });
+  const hoverMQ = window.matchMedia("(hover: hover) and (pointer: fine)");
+  let hoverAbort = null;
 
-    gsap.utils.toArray(".content a").forEach((el) => {
-      el.addEventListener("mouseenter", () =>
-        gsap.to(el, { y: -1, duration: 0.14, ease: "power2.out" }),
-      );
-      el.addEventListener("mouseleave", () =>
-        gsap.to(el, { y: 0, duration: 0.14, ease: "power2.out" }),
-      );
-    });
-
-    gsap.utils.toArray(".image-frame img").forEach((img) => {
-      img.addEventListener("mouseenter", () =>
-        gsap.to(img, { scale: 1.02, duration: 0.22, ease: "power2.out" }),
-      );
-      img.addEventListener("mouseleave", () =>
-        gsap.to(img, { scale: 1, duration: 0.22, ease: "power2.out" }),
-      );
-    });
+  function killHoverTweens() {
+    gsap.killTweensOf(".nav-links a, .brand, .content a, .image-frame img");
   }
+
+  function attachHoverListeners() {
+    hoverAbort?.abort();
+    hoverAbort = new AbortController();
+    const { signal } = hoverAbort;
+
+    if (!hoverMQ.matches) return;
+
+    for (const el of gsap.utils.toArray(".nav-links a, .brand")) {
+      el.addEventListener(
+        "mouseenter",
+        (e) => {
+          gsap.to(e.currentTarget, {
+            y: -2,
+            duration: 0.18,
+            ease: "power2.out",
+          });
+        },
+        { signal },
+      );
+      el.addEventListener(
+        "mouseleave",
+        (e) => {
+          gsap.to(e.currentTarget, {
+            y: 0,
+            duration: 0.18,
+            ease: "power2.out",
+          });
+        },
+        { signal },
+      );
+    }
+
+    for (const el of gsap.utils.toArray(".content a")) {
+      el.addEventListener(
+        "mouseenter",
+        (e) => {
+          gsap.to(e.currentTarget, {
+            y: -1,
+            duration: 0.14,
+            ease: "power2.out",
+          });
+        },
+        { signal },
+      );
+      el.addEventListener(
+        "mouseleave",
+        (e) => {
+          gsap.to(e.currentTarget, {
+            y: 0,
+            duration: 0.14,
+            ease: "power2.out",
+          });
+        },
+        { signal },
+      );
+    }
+
+    for (const img of gsap.utils.toArray(".image-frame img")) {
+      img.addEventListener(
+        "mouseenter",
+        (e) => {
+          gsap.to(e.currentTarget, {
+            scale: 1.02,
+            duration: 0.22,
+            ease: "power2.out",
+          });
+        },
+        { signal },
+      );
+      img.addEventListener(
+        "mouseleave",
+        (e) => {
+          gsap.to(e.currentTarget, {
+            scale: 1,
+            duration: 0.22,
+            ease: "power2.out",
+          });
+        },
+        { signal },
+      );
+    }
+  }
+
+  attachHoverListeners();
+
+  const onHoverMQChange = () => {
+    killHoverTweens();
+    attachHoverListeners();
+  };
+  hoverMQ.addEventListener("change", onHoverMQChange);
 
   const revealTargets = article.querySelectorAll(
     "h1, h2, h3, p, ul, ol, blockquote, pre, .image-frame",
@@ -142,4 +222,13 @@ function initGSAP(article) {
   });
 
   ScrollTrigger.refresh();
+
+  return function cleanupGSAP() {
+    hoverAbort?.abort();
+    hoverAbort = null;
+    hoverMQ.removeEventListener("change", onHoverMQChange);
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+    killHoverTweens();
+    gsap.set(revealTargets, { clearProps: "all" });
+  };
 }

@@ -258,6 +258,12 @@ blockquote {
     opacity: 1 !important;
     filter: none !important;
   }
+
+  /* medium-zoom (initZoom always runs; soften motion for reduced-motion users) */
+  .medium-zoom-overlay,
+  .medium-zoom-image {
+    transition: none !important;
+  }
 }
 
 .content img {
